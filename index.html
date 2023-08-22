@@ -1,29 +1,66 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <title>Video chat</title>
-      <meta http-equiv = "refresh" content = "3; url = https://www.youtube.com/watch?v=dQw4w9WgXcQ" />
-   </head>
-   <body>
-   		<h1 style="font-family:'Courier New'">Общажная банда на отдыхе meeting</h1>
-   		<h2 id="sequence" style="font-size:60px; position: absolute; left: 50%; top: 50%; font-family:'Courier New" ></h2>
-          <script>
-        var example = ['Loading', 'Loading.', 'Loading..', 'Loading...'];
-
-        textSequence(0);
-        function textSequence(i) {
-
-            if (example.length > i) {
-                setTimeout(function() {
-                    document.getElementById("sequence").innerHTML = example[i];
-                    textSequence(++i);
-                }, 500); // 1 second (in milliseconds)
-
-            } else if (example.length == i) { // Loop
-                textSequence(0);
-            }
-
+<head>
+    <title>Таймер и таблица</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
-    </script>
-   </body>
+
+    #timer {
+        font-size: 48px;
+        margin-top: 50px;
+    }
+
+    table {
+        margin-top: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        border-collapse: collapse;
+        width: 60%;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        border: 1px solid black;
+    }
+</style>
+</head>
+<body>
+    <script>
+        function updateTimer() {
+            var currentDate = new Date();
+            var targetDate = new Date(
+                document.getElementById("last").innerHTML
+                ); // Замените на свою целевую дату
+            var timeDiff = currentDate.getTime() - targetDate.getTime();
+
+        var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML =
+            days + " дней, " + hours + " часов, " + minutes + " минут, " + seconds + " секунд";
+    }
+
+    setInterval(updateTimer, 1000);
+</script>
+
+<h1>Время без кринжа:</h1>
+<div id="timer"></div>
+
+<table>
+    <tr>
+        <th>Дата</th>
+        <th>Кринж</th>
+    </tr>
+    <tr>
+        <td id="last">2023-08-22 14:11:00</td>
+        <td>Нужно придумать смешные прозвища на корпоратив</td>
+    </tr>
+</table>
+</body>
 </html>
