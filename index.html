@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Таймер и таблица</title>
+    <title>Cчетчик кринжа</title>
     <style>
         body {
             text-align: center;
@@ -47,19 +47,69 @@
     }
 
     setInterval(updateTimer, 1000);
-</script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Получение таблицы
+        const table =document.getElementById("table");
+
+        // Получение всех строк таблицы, кроме первой строки заголовка
+        const rows = table.querySelectorAll('tr:not(:first-child)');
+
+        // Обход всех строк таблицы, начиная со второй строки
+        for (let i = 1; i < rows.length; i++) {
+          // Получение текущей строки и предыдущей строки
+          const currentRow = rows[i];
+          const previousRow = rows[i - 1];
+
+          // Получение даты текущей строки и предыдущей строки из первого столбца
+          const currentDate = new Date(currentRow.querySelector('td:first-child').innerText);
+          const previousDate = new Date(previousRow.querySelector('td:first-child').innerText);
+
+          // Разница между датами
+          const dateDiff = previousDate - currentDate;
+
+          function millisecondsToText(milliseconds) {
+          const seconds = Math.floor(milliseconds / 1000);
+          const minutes = Math.floor(seconds / 60);
+          const hours = Math.floor(minutes / 60);
+          const days = Math.floor(hours / 24);
+
+          if (days >= 1) {
+            return `${days} дней`;
+          } else if (hours >= 1) {
+            return `${hours} часов`;
+          } else if (minutes >= 1) {
+            return `${minutes} минут`;
+          } else {
+            return `${seconds} секунд`;
+          }
+        }
+
+          // Запись значения разницы в третий столбец текущей строки
+          currentRow.querySelector('td:nth-child(3)').innerText = millisecondsToText(dateDiff);
+        }
+    });
+
+    </script>
 
 <h1>Время без кринжа:</h1>
 <div id="timer"></div>
 
-<table>
+<table id="table">
     <tr>
         <th>Дата</th>
         <th>Кринж</th>
+        <th>Время без кринжа</th>
     </tr>
     <tr>
-        <td id="last">2023-08-22 14:11:00</td>
+        <td id="last">2023-08-22 14:53:00</td>
+        <td>Взяли прозвища "Цукерберг" и "Фасилитатор"</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>2023-08-22 14:11:00</td>
         <td>Нужно придумать смешные прозвища на корпоратив</td>
+        <td></td>
     </tr>
 </table>
 </body>
