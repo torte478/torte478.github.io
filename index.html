@@ -8,6 +8,11 @@
             font-family: Arial, sans-serif;
         }
 
+    #last-cringe {
+        font-size: 48px;
+        margin-top: 50px;
+    }
+
     #timer {
         font-size: 48px;
         margin-top: 50px;
@@ -29,6 +34,14 @@
 </style>
 </head>
 <body>
+    <h1>До последнего кринжа осталось: </h1>
+    <div id="last-cringe"></div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
     <script>
         function updateTimer() {
             var currentDate = new Date();
@@ -46,7 +59,22 @@
             days + " дней, " + hours + " часов, " + minutes + " минут, " + seconds + " секунд";
     }
 
+    function updateTimer1() {
+            var currentDate = new Date();
+            var targetDate = new Date(1723741200000);
+            var timeDiff = -1 * (currentDate.getTime() - targetDate.getTime());
+
+        var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        document.getElementById("last-cringe").innerHTML =
+            days + " дней, " + hours + " часов, " + minutes + " минут, " + seconds + " секунд";
+    }
+
     setInterval(updateTimer, 1000);
+    setInterval(updateTimer1, 1000);
 
     document.addEventListener("DOMContentLoaded", function() {
       // Получение таблицы
@@ -69,21 +97,21 @@
           const dateDiff = previousDate - currentDate;
 
           function millisecondsToText(milliseconds) {
-          const seconds = Math.floor(milliseconds / 1000);
-          const minutes = Math.floor(seconds / 60);
-          const hours = Math.floor(minutes / 60);
-          const days = Math.floor(hours / 24);
+              const seconds = Math.floor(milliseconds / 1000);
+              const minutes = Math.floor(seconds / 60);
+              const hours = Math.floor(minutes / 60);
+              const days = Math.floor(hours / 24);
 
-          if (days >= 1) {
-            return `${days} дней`;
-          } else if (hours >= 1) {
-            return `${hours} часов`;
-          } else if (minutes >= 1) {
-            return `${minutes} минут`;
-          } else {
-            return `${seconds} секунд`;
-          }
-        }
+              if (days >= 1) {
+                return `${days} дней`;
+              } else if (hours >= 1) {
+                return `${hours} часов`;
+              } else if (minutes >= 1) {
+                return `${minutes} минут`;
+              } else {
+                return `${seconds} секунд`;
+              }
+            }
 
           // Запись значения разницы в третий столбец текущей строки
           currentRow.querySelector('td:nth-child(3)').innerText = millisecondsToText(dateDiff);
